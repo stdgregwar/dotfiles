@@ -35,11 +35,11 @@ values."
      git
      markdown
      org
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     spell-checking
+     ;;(shell :variables
+     ;;       shell-default-height 30
+     ;;       shell-default-position 'bottom)
      syntax-checking
+     semantic
      ;; version-control
      c-c++
      lua
@@ -262,8 +262,10 @@ you should place you code here."
   (progn
     (setq tab-width 4)
     (setq c-basic-offset 4)
-    )
+    (setq-default dotspacemacs-line-numbers t)
+    (setq-default indent-guide-mode t)
   )
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
