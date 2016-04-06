@@ -35,13 +35,20 @@ values."
      git
      markdown
      org
-     ;;(shell :variables
-     ;;       shell-default-height 30
-     ;;       shell-default-position 'bottom)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom
+            shell-default-shell 'term)
      syntax-checking
      semantic
      ;; version-control
-     c-c++
+     (c-c++ :variables
+            c-c++-enable-clang-support t
+            c-c++-default-mode-for-headers 'c++-mode)
+     ;;c-c++
+     ;;ycmd
+   ;;  cscope
+     cscope
      lua
      scala
      themes-megapack
@@ -50,7 +57,8 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      cpputils-cmake)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -264,7 +272,15 @@ you should place you code here."
     (setq c-basic-offset 4)
     (setq-default dotspacemacs-line-numbers t)
     (setq-default indent-guide-mode t)
-  )
+    (setq-default ycmd-server-command '("python" "/usr/bin/ycmd"))
+    (setq-default cppcm-build-dirname '"debug_build")
+    (setq-default cppcm-makefile-name '".cpputilsMakefile")
+    (add-hook 'c-mode-common-hook
+               (lambda ()
+                 (when (derived-mode-p 'c-mode 'c++-mode)
+                   (cppcm-reload-all)))))
+
+        
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
