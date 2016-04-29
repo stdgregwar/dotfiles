@@ -39,18 +39,20 @@ values."
             shell-default-height 30
             shell-default-position 'bottom
             shell-default-shell 'term)
+
      syntax-checking
      semantic
      ;; version-control
      (c-c++ :variables
-            c-c++-enable-clang-support t
-            c-c++-default-mode-for-headers 'c++-mode)
+            c-c++-enable-clang-support nil
+            c-c++-default-mode-for-headers 'c-mode)
      ;;c-c++
-     ;;ycmd
-   ;;  cscope
+     ;; ycmd
      cscope
+     ;;cscope
      lua
      scala
+     latex
      themes-megapack
      )
    ;; List of additional packages that will be installed without being
@@ -269,6 +271,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place you code here."
   (progn
     (setq tab-width 4)
+    (add-hook 'doc-view-mode-hook 'auto-revert-mode)
     (setq c-basic-offset 4)
     (setq-default dotspacemacs-line-numbers t)
     (setq-default indent-guide-mode t)
