@@ -22,7 +22,7 @@ values."
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
+     ;; --------------------- -------------------------------------------
      ;;auto-completion
      ;; better-defaults
      (auto-completion :variables
@@ -51,11 +51,13 @@ values."
      cscope
      ;;cscope
      lua
-     scala
+     (scala :variables
+            scala-auto-start-ensime t)
      latex
      themes-megapack
+     gnus
      )
-   ;; List of additional packages that will be installed without being
+   ;; List of additihttps://www.gnu.org/software/emacs/manual/html_node/elisp/Calling-Functions.htmlonal packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
@@ -278,6 +280,7 @@ you should place you code here."
     (setq-default ycmd-server-command '("python" "/usr/bin/ycmd"))
     (setq-default cppcm-build-dirname '"debug_build")
     (setq-default cppcm-makefile-name '".cpputilsMakefile")
+    (setq-default indent-guide)
     (add-hook 'c-mode-common-hook
                (lambda ()
                  (when (derived-mode-p 'c-mode 'c++-mode)
@@ -286,5 +289,49 @@ you should place you code here."
         
 )
 
+
+;; Get email, and store in nnml
+(setq gnus-secondary-select-methods
+      '(
+        (nnimap "gmail"
+                (nnimap-address
+                 "imap.gmail.com")
+                (nnimap-server-port 993)
+                (nnimap-stream ssl))
+        ))
+
+;; Send email via Gmail:
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-default-smtp-server "smtp.gmail.com")
+
+;; Archive outgoing email in Sent folder on imap.gmail.com:
+(setq gnus-message-archive-method '(nnimap "imap.gmail.com")
+      gnus-message-archive-group "[Gmail]/Sent Mail")
+
+;; set return email address based on incoming email address
+(setq gnus-posting-styles
+      '(((header "to" "address@outlook.com")
+         (address "address@outlook.com"))
+        ((header "to" "address@gmail.com")
+         (address "address@gmail.com"))))
+
+;; store email in ~/gmail directory
+(setq nnml-directory "~/gmail")
+(setq message-directory "~/gmail")
+
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (powerline org alert markdown-mode hydra magit magit-popup git-commit with-editor iedit sbt-mode packed auto-complete auctex yasnippet company s highlight anzu smartparens bind-map evil undo-tree flycheck xcscope request helm helm-core popup avy async dash projectile uuidgen org-projectile org-download link-hint git-link eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff eshell-z dumb-jump f darkokai-theme column-enforce-mode scala-mode zonokai-theme zenburn-theme zen-and-art-theme xterm-color ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme toc-org tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme stickyfunc-enhance stekene-theme srefactor spacemacs-theme spaceline spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smooth-scrolling smeargle shell-pop seti-theme reverse-theme restart-emacs rainbow-delimiters railscasts-theme quelpa purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pastels-on-dark-theme paradox page-break-lines orgit organic-green-theme org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noflet noctilux-theme niflheim-theme neotree naquadah-theme mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minimal-theme material-theme markdown-toc majapahit-theme magit-gitflow macrostep lush-theme lua-mode lorem-ipsum linum-relative light-soap-theme leuven-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-cscope helm-company helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger gh-md gandalf-theme flycheck-pos-tip flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu espresso-theme eshell-prompt-extras esh-help ensime elisp-slime-nav dracula-theme django-theme disaster define-word darktooth-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme cpputils-cmake company-statistics company-quickhelp company-c-headers company-auctex colorsarenice-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized cmake-mode clues-theme clean-aindent-mode clang-format cherry-blossom-theme busybee-theme buffer-move bubbleberry-theme bracketed-paste birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile auctex-latexmk apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
