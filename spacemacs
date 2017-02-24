@@ -285,7 +285,10 @@ you should place you code here."
     (add-hook 'c-mode-common-hook
                (lambda ()
                  (when (derived-mode-p 'c-mode 'c++-mode)
-                   (cppcm-reload-all)))))
+                   (cppcm-reload-all))))
+    ;; Fixes the paste issue when clicking recent files
+    (add-hook 'spacemacs-buffer-mode-hook (lambda ()
+                                            (set (make-local-variable 'mouse-1-click-follows-link) nil))))
 )
 
 
