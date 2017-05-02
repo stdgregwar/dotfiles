@@ -39,7 +39,8 @@ values."
      emacs-lisp
      git
      markdown
-     org
+     (org :variables
+          org-enable-reveal-js-support t)
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -50,7 +51,7 @@ values."
      ;; version-control
      (c-c++ :variables
             c-c++-enable-clang-support nil
-            c-c++-default-mode-for-headers 'c-mode)
+            c-c++-default-mode-for-headers 'c++-mode)
      ;;c-c++
      ;; ycmd
      cscope
@@ -134,7 +135,7 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Sauce Code Pro"
                                :size 13
                                :weight normal
                                :width normal
